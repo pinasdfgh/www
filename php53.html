@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="./libs/js/jquery.js"></script>
+</head>
+<body>
+<input id="btn" type="button" value="test">
+<div id="here"></div>
+<script>
+    $('#btn').click(function(){
+        setInterval(doit,1000);
+    });
+
+    function doit(){
+        $.get("php54.php",function(data,status){
+//            $("#here").html(status);
+            if(status=='success'){
+                $("#here").html(data);
+            }
+        })
+    };
+
+</script>
+
+</body>
+</html>
