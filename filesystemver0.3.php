@@ -8,11 +8,19 @@
     <link rel="stylesheet" href="./libs/css/bootstrap.css">
     <script src="libs/js/jquery.js"></script>
     <script src="libs/js/bootstrap.min.js"></script>
-    <script src="./libs/ckeditor/ckeditor.js"></script>
-    <script src="./libs/ckeditor/samples/js/sample.js"></script>
-    <link rel="stylesheet" href="./libs/ckeditor/samples/css/samples.css">
-    <link rel="stylesheet" href="./libs/ckeditor/samples/toolbarconfigurator/lib/codemirror/neo.css">
+<!--    <script src="./libs/ckeditor/ckeditor.js"></script>-->
+<!--    <script src="./libs/ckeditor/samples/js/sample.js"></script>-->
+<!--    <link rel="stylesheet" href="./libs/ckeditor/samples/css/samples.css">-->
+<!--    <link rel="stylesheet" href="./libs/ckeditor/samples/toolbarconfigurator/lib/codemirror/neo.css">-->
     <style>
+        body{
+            font-family: Arial,Times New Roman,serif;
+            font-size: medium;
+        }
+        ul{
+            padding-left:20px;
+        }
+
         li{
             height: 50px;
 
@@ -21,10 +29,10 @@
             height: 100%;
         }
         /*hef image*/
-        /*.imageIn{*/
-            /*height: 75vh;*/
-            /*width: 75vw;*/
-        /*}*/
+        .imageIn{
+            height: 100vh;
+            width: 100vw;
+        }
 
         .list-group-item{
             position: relative;
@@ -64,60 +72,21 @@
         <ul class="list-group" id="here">
             <li class="list-group-item">本機</li>
 
-
-
-
-<!--            <li class="list-group-item">文件結尾</li>-->
-<!--            <li class="list-group-item" style="background-color: orangered"></li>-->
-
         </ul>
-
-
-
     </aside>
+
     <article class="col-lg-10 container" >
 
 
         <ul class="nav nav-tabs" id="page">
-            <li ><a data-toggle="tab" href="#home">Home</a></li>
-            <li id="12"><a id="45" data-toggle="tab" href="#menu1">Menu 1</a></li>
-            <li><a data-toggle="tab" href="#menu2">Menu 2
-                </a></span></li>
 
         </ul>
 
         <div class="tab-content" id="pageContext">
-            <div id="home" class="tab-pane fade in active">
-
-                        <div id="home" class="tab-content" style="padding: 0px;margin: 0px">
-                            <div class="grid-container">
-                                <div class="grid-width-100" style="height: 100%">
-                                    <div id="editor">
-
-                                        <p>I'm an instance of CKEditor.</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-            </div>
-            <div id="menu1" class="tab-pane fade">
-                <h3>Menu 1</h3>
-                <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-                            <iframe src="test.jpg"></iframe>
-            </div>
-            <div id="menu2" class="tab-pane fade">
-                <h3>Menu 2</h3>
-                <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam.</p>
-            </div>
-            <div id="menu3" class="tab-pane fade">
-                <h3>Menu 3</h3>
-                <p>Eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.</p>
-            </div>
-        </div>
 
     </article>
 
-</div>
+
 <!--<div class="well" style="position:fixed; bottom: 0px;width:100% ;margin:0px">upload</div>-->
 <!--<IFRAME src='test.jpg' width='100%' height='100%'></IFRAME>-->
 <script src="filesystem.js"></script>
@@ -158,7 +127,7 @@
             }else{
                 //remove
                 var posClass='.'+dirfile;
-                console.log(posClass);
+//                console.log(posClass);
                 $(posClass).remove();
                 $(event.target).removeClass('glyphicon-triangle-bottom');
                 $(event.target).addClass('glyphicon-triangle-right');
@@ -172,7 +141,6 @@
             $.ajax({url:"fileopen.php",type:'post',
                 data:{path:dirPath},success:function (data){
                     inHead=JSON.parse(data);
-//                    console.log(inHead);
                     inCur=inHead.next;
                     inPer=inCur;
 //                    var posData='#'+ dirPath;
@@ -183,7 +151,6 @@
                             .addClass("list-group-item")
                             .addClass(inCur.type)
                             .text(inCur.file)
-
 
                         if(inCur.type=='dir'){
                             $li.addClass('glyphicon').addClass('glyphicon-triangle-right');
@@ -198,10 +165,7 @@
                         inPer=inCur;
                     }
                 }})
-        }
-
-
-
+        };
 
         //data sturct link list
         var head=new Page();
@@ -278,7 +242,7 @@
 
 
 
-        initSample();
+
 
     });
 

@@ -26,63 +26,109 @@ Page.prototype={
         event.cancelBubble=true;
     },
     addmeun: function(){
-        var re=/.(jpg|gif)$/i;
-        if(re.test(this.path)){
-            var res = 'href="#'+this.name+'"';
-            res=res.replace('\n',"");
-            var resid = 'id="'+this.pageId+'"';
-            resid=resid.replace('\n',"");
-            var resA = 'id="'+this.pageId+'A"';
-            resA=resA.replace('\n',"");
-            //               note:不管用什麼方式讓字串相加只要由' or "都會產生\n
-            var temp='<a '+resA+' data-toggle="tab" '+res+'>'+this.name+'</a>';
+        // var imgTest=/.(jpg|gif)$/i;
+        // var officeTest=/.(docx|docm|dotm|dotx|xlsx|xlsb|xls|xlsm|pptx|ppsx|ppt|pps|pptm|potm|ppam|potx|ppsm)$/i;
+        // if(imgTest.test(this.path)||officeTest.test(this.path)){
+        var res = 'href="#'+this.name+'"';
+        res=res.replace('\n',"");
+        var resid = 'id="'+this.pageId+'"';
+        resid=resid.replace('\n',"");
+        var resA = 'id="'+this.pageId+'A"';
+        resA=resA.replace('\n',"");
+        //               note:不管用什麼方式讓字串相加只要由' or "都會產生\n
+        var temp='<a '+resA+' data-toggle="tab" '+res+'>'+this.name+'</a>';
 
-            //                console.log(temp);
-            var creatli='<li '+resid+'>'+temp+'</li>';
+        //                console.log(temp);
+        var creatli='<li '+resid+'>'+temp+'</li>';
 
-            $('#page').append(creatli);
+        $('#page').append(creatli);
 
-            var idIn='#'+this.pageId;
-            idIn=idIn.replace('\n',"");
-            var Rmid = 'id="'+this.pageRm+'"';
-            Rmid=Rmid.replace('\n',"");
-            var $span=$('<span></span>')
-                .addClass('class')
-                .addClass('remove glyphicon-remove-sign')
-                .addClass('glyphicon')
-                .attr('id',this.pageRm);
+        var idIn='#'+this.pageId;
+        idIn=idIn.replace('\n',"");
+        var Rmid = 'id="'+this.pageRm+'"';
+        Rmid=Rmid.replace('\n',"");
+        var $span=$('<span></span>')
+            .addClass('class')
+            .addClass('remove glyphicon-remove-sign')
+            .addClass('glyphicon')
+            .attr('id',this.pageRm);
 
-            $(idIn).append($span);
+        $(idIn).append($span);
 
-        }else{}
+
         event.cancelBubble=true;
     },
     addcontent: function(){
-        var re=/.(jpg|gif)$/i;
-        if(re.test(this.path)){
-            // var res = 'id="'+this.name+'"';
-            // res=res.replace('\n',"");
-            // var context='<div '+ res +
-            //     ' class="tab-pane fade"><iframe class="imageIn" src="'+this.path+
-            //     '"></iframe></div>';
-            // //                console.log(context);
-            // $('#pageContext').append(context);
+        var imgTest=/.(jpg|gif)$/i;
+        var officeTest=/.(docx|docm|dotm|dotx|xlsx|xlsb|xls|xlsm|pptx|ppsx|ppt|pps|pptm|potm|ppam|potx|ppsm)$/i;
+        if(imgTest.test(this.path)){
+            var imgSrc='fimage.php?path='+this.path;
 
-            var $div=$('<div></div>')
-                .attr('id',this.name)
-                .addClass("tab-pane fade")
+            var $div=$('<div></div>').attr('id',this.name).addClass('tab-pane fade');
+            var $iframe=$('<iframe></iframe>').addClass('imageIn').attr('src',imgSrc);
+            $div.append($iframe);
+            $('#pageContext').append($div);
 
-            var imgScr=this.path;
+//             var $div=$('<div></div>')
+//                 .attr('id',this.name)
+//                 .addClass("tab-pane fade")
+//                 .css('backgroundColor','#000000')
+//                 .css('height','1000px')
+//                 .css('width','1000px')
+//                 .css({'display': 'table-cell','vertical-align':'middle','text-align':'center'});
+// //                  圖片置中
+//             var path=this.path;
+//             var imgSrc='fimage.php?path='+this.path;
+//
+//             // var img=$('<a></a>').attr('href',imgScr);
+//             var $img=$('<img/>')
+//                 .attr('src',imgSrc);
+//                 // .css('vertical-align','middle');
+//
+//             $div.append($img);
+//
+//             $('#pageContext').append($div);
 
-            var $img=$('<img>').attr('src',imgScr);
 
-            $div.append($img);
+        }else if(officeTest.test(this.path)){
+            //開啟office 檔案用MS提供的轉換網站
+            // console.log(location.protocol);
+            // console.log(location.hostname);
+            var fileSrc=location.protocol+'//'+location.hostname+this.path.replace('.','');
+            var officeSrc='https://view.officeapps.live.com/op/view.aspx?src='+fileSrc;
+            var $div=$('<div></div>').attr('id',this.name).addClass('tab-pane fade');
+            // console.log(fileSrc);
+            var $iframe=$('<iframe></iframe>').addClass('imageIn').attr('src',officeSrc);
+            $div.append($iframe);
+            $('#pageContext').append($div);
+        }else {
+            var $div = $('<div></div>').attr('id', this.name).addClass('tab-pane fade');
+
+            var dirPath = this.path;
+            $.ajax({
+                url: "fhtml.php", type: 'post',
+                data: {path: dirPath}, success: function (data) {
+                    var content = data;
+                    $div.html(content);
+                }
+            });
 
             $('#pageContext').append($div);
 
-            // var $canvas=$('<canvas></canvas>')
+            // var $div=$('<div></div>').addClass("tab-pane fade").attr('id',this.name);
+            // var $divEdit1=$('<div></div>').addClass("tab-content");
+            // var $divEdit2=$('<div></div>').addClass("grid-container");
+            // var $divEdit3=$('<div></div>').addClass("grid-width-100");
+            // var $Edit=$('<div></div>').attr('id','editor').html("123344");
+            // $divEdit3.append($Edit);
+            // $divEdit2.append($divEdit3);
+            // $divEdit1.append($divEdit2);
+            // $div.append($divEdit1);
+            // $('#pageContext').append($div);
+            // initSample();
 
-        }else{}
+
+        }
         event.cancelBubble=true;
     },
     remove:function(){

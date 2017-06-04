@@ -1,5 +1,6 @@
 <?php
     $dirname='./Download';
+//    echo $dirname;
     if(isset($_POST['path'])) {
 
         $dirname = $_POST['path'];
@@ -60,6 +61,7 @@
         if(!$fp){
             header("Location:404");
         }
+
 //link list pass data json to html
     $head=new node(null);
     $cur=$head;
@@ -67,6 +69,7 @@
     $p=null;
     $first=true;
     while($file=readdir($fp)){
+//        echo $file;
         if(preg_match('/^\./',$file)>0){continue;}
         $cur=new node($dirname);
         $cur->getpath($file);
@@ -80,5 +83,5 @@
 //        $cur->getResult();
     }
     $cur->next=$p;
-
+//    var_dump(json_encode($head));
     echo json_encode($head);
