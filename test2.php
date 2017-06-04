@@ -15,16 +15,10 @@
 <body>
 
 <h1>sdsadsd</h1>
-<canvas></canvas>
+
+<iframe href="https://view.officeapps.live.com/op/view.aspx?src=https://127.0.0.1/Download/ch03鏈結串列.ppt"></iframe>
 <img>
 <script type="text/javascript" charset="utf-8">
-    var can = document.getElementsByTagName('canvas')[0];
-    var ctx = can.getContext('2d');
-    ctx.strokeStyle = '#f00';
-    ctx.lineWidth   = 6;
-    ctx.lineJoin    = 'round';
-    ctx.strokeRect(140,60,40,40);
-    var img = document.getElementsByTagName('img')[0];
-    img.src = can.toDataURL();
+    alert(location.href);
 </script>
 </body></html>

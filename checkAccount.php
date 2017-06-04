@@ -15,7 +15,7 @@ if ($stmt->rowCount()>0){
     if (password_verify($passwd, $dbPasswd)){
         // OK
         $_SESSION['member'] = $memberObj;
-        header("Location: mainv2.php");
+        header("Location: HW170604.php");
     }else{
         // passwd not match
         header("Location: loginv2.php");
