@@ -49,7 +49,7 @@ Page.prototype={
         Rmid=Rmid.replace('\n',"");
         var $span=$('<span></span>')
             .addClass('class')
-            .addClass('remove glyphicon-remove-sign')
+            .addClass('remove glyphicon-remove')
             .addClass('glyphicon')
             .attr('id',this.pageRm);
 
